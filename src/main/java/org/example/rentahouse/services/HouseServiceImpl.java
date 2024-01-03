@@ -35,6 +35,7 @@ public class HouseServiceImpl implements HouseService{
     @Override
     public void add(House obj) throws SQLException {
         try(Connection connection = DatabaseConnection.getconnection()) {
+            assert connection != null;
             PreparedStatement preparedStatement = connection.prepareStatement("insert into house(id, name, address, price, roomNum, bathroomNum, status, describe) values (?,?,?,?,?,?,?,?)");
             preparedStatement.setInt(1, obj.getId());
             preparedStatement.setString(2, obj.getName());
@@ -106,6 +107,25 @@ public class HouseServiceImpl implements HouseService{
 
     @Override
     public List<House> findByName(String name) {
-        return null;
+        List<House> houseList = new ArrayList<>();
+        try(Connection connection = DatabaseConnection.getconnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from house where id = ?");
+            preparedStatement.setString(1,"%" + name + "%");
+            ResultSet rs = preparedStatement.executeQuery();
+            while (rs.next()){
+                int id = rs.getInt("id");
+                String findName = rs.getString("name");
+                String address = rs.getString("address");
+                double price = rs.getDouble("price");
+                int roomNum = rs.getInt("roomNum");
+                int bathroomNum = rs.getInt("bathroomNum");
+                String status = rs.getString("status");
+                String describe = rs.getString("describe");
+                houseList.add(new House(id, findName, address, price, roomNum, bathroomNum, status, describe));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return houseList;
     }
 }

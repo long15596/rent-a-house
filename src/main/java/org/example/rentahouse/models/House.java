@@ -9,6 +9,7 @@ public class House {
     private int bathroomNum;
     private String status;
     private String describe;
+    private Customer customer;
     public House(){}
 
     public House(int id, String name, String address, double price, int roomNum, int bathroomNum, String status, String describe) {
@@ -84,5 +85,13 @@ public class House {
 
     public void setDescribe(String describe) {
         this.describe = describe;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }
