@@ -1,5 +1,6 @@
 package org.example.rentahouse.services;
 
+import org.example.rentahouse.models.Customer;
 import org.example.rentahouse.models.House;
 
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HouseServiceImpl implements HouseService{
+    CustomerService customerService = new CustomerServiceImpl();
     @Override
     public List<House> findAll() {
         List<House> houses = new ArrayList<>();
@@ -25,7 +27,9 @@ public class HouseServiceImpl implements HouseService{
                 int bathroomNum = resultSet.getInt("bathroomNum");
                 String status = resultSet.getString("status");
                 String describe = resultSet.getString("describe");
-                houses.add(new House(id, name, address, price, roomNum, bathroomNum, status, describe));
+                int idOwner = resultSet.getInt("idOwner");
+                Customer customer = customerService.findById(idOwner);
+                houses.add(new House(id, name, address, price, roomNum, bathroomNum, status, describe, customer));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -36,7 +40,7 @@ public class HouseServiceImpl implements HouseService{
     public void add(House obj) throws SQLException {
         try(Connection connection = DatabaseConnection.getconnection()) {
             assert connection != null;
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into house(id, name, address, price, roomNum, bathroomNum, status, describe) values (?,?,?,?,?,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into house(id, name, address, price, roomNum, bathroomNum, status, describe, idOwner) values (?,?,?,?,?,?,?,?,?)");
             preparedStatement.setInt(1, obj.getId());
             preparedStatement.setString(2, obj.getName());
             preparedStatement.setString(3, obj.getAddress());
@@ -66,7 +70,9 @@ public class HouseServiceImpl implements HouseService{
                 int bathroom = resultSet.getInt("bathroomNum");
                 String status = resultSet.getString("status");
                 String describe = resultSet.getString("describe");
-                house = new House(id, name, address, price, roomNum, bathroom, status, describe);
+                int idOwner = resultSet.getInt("idOwner");
+                Customer customer = customerService.findById(idOwner);
+                house = new House(id, name, address, price, roomNum, bathroom, status, describe, customer);
             }
         }catch (SQLException e) {
             e.printStackTrace();
@@ -109,7 +115,7 @@ public class HouseServiceImpl implements HouseService{
     public List<House> findByName(String name) {
         List<House> houseList = new ArrayList<>();
         try(Connection connection = DatabaseConnection.getconnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("select * from house where id = ?");
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from house where name like ?");
             preparedStatement.setString(1,"%" + name + "%");
             ResultSet rs = preparedStatement.executeQuery();
             while (rs.next()){
@@ -121,7 +127,9 @@ public class HouseServiceImpl implements HouseService{
                 int bathroomNum = rs.getInt("bathroomNum");
                 String status = rs.getString("status");
                 String describe = rs.getString("describe");
-                houseList.add(new House(id, findName, address, price, roomNum, bathroomNum, status, describe));
+                int idOwner = rs.getInt("idOwner");
+                Customer customer = customerService.findById(idOwner);
+                houseList.add(new House(id, findName, address, price, roomNum, bathroomNum, status, describe, customer));
             }
         } catch (SQLException e) {
             e.printStackTrace();

@@ -12,7 +12,7 @@ public class House {
     private Customer customer;
     public House(){}
 
-    public House(int id, String name, String address, double price, int roomNum, int bathroomNum, String status, String describe) {
+    public House(int id, String name, String address, double price, int roomNum, int bathroomNum, String status, String describe, Customer customer) {
         this.id = id;
         this.name = name;
         this.address = address;
@@ -21,6 +21,7 @@ public class House {
         this.bathroomNum = bathroomNum;
         this.status = status;
         this.describe = describe;
+        this.customer = customer;
     }
 
     public int getId() {
