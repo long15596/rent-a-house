@@ -6,14 +6,12 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     public static Connection getconnection(){
-        Connection connection;
+        Connection connection = null;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/rent-a-house?useSSL=false", "root", "123456");
-        } catch (ClassNotFoundException e) {
-            return null;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+            connection =  DriverManager.getConnection("jdbc:mysql://localhost:3306/rent-a-house", "root", "123456");
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e);
         }
         return connection;
     }

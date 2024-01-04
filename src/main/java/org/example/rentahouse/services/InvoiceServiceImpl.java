@@ -94,4 +94,9 @@ public class InvoiceServiceImpl implements InvoiceService{
     public List<Invoice> findByName(String name) {
         return null;
     }
+
+    @Override
+    public double TotalAmount(House house, int time) {
+        return house.getPrice() * time;
+    }
 }
