@@ -1,7 +1,6 @@
 package org.example.rentahouse.services;
 
 import org.example.rentahouse.models.Customer;
-import org.example.rentahouse.models.House;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
