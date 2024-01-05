@@ -248,34 +248,33 @@
                 </div>
                 <button>Login</button>
             </div>
-            <div class="content">
-                <h1>Register</h1>
-                <div class="group">
-                    <input type="text" id="username-reg" class="r-inputText" placeholder="Username" required>
-                    <label for="username-reg"></label>
-                </div>
-                <div class="group">
-                    <input type="text" id="1email-reg" class="r-inputText" placeholder="Password" required>
-                    <label for="1email-reg"></label>
-                </div>
-                <select>
-                    <option>Ngươì dùng</option>
-                    <option>Chủ nhà</option>
-                </select>
-                <div class="group">
-                    <input type="text" id="2email-reg" class="r-inputText" placeholder="Name" required>
-                    <label for="2email-reg"></label>
-                </div>
-                <div class="group">
-                    <input type="number" id="3email-reg" class="r-inputText" placeholder="Phone-number" required>
-                    <label for="3email-reg"></label>
-                </div>
-            </div>
-            <div class="form-rotate">
-                <div id="rotate"></div>
-            </div>
-            <button>Sign Up</button>
         </form>
+        <div class="content">
+            <h1>Register</h1>
+            <div class="group">
+                <input type="text" id="username-reg" class="r-inputText" placeholder="Username" required>
+                <label for="username-reg"></label>
+            </div>
+            <div class="group">
+                <input type="text" id="1email-reg" class="r-inputText" placeholder="Password" required>
+                <label for="1email-reg"></label>
+            </div>
+            <select>
+                <option>Ngươì dùng</option>
+                <option>Chủ nhà</option>
+            </select>
+            <div class="group">
+                <input type="text" id="2email-reg" class="r-inputText" placeholder="Name" required>
+                <label for="2email-reg"></label>
+            </div>
+            <div class="group">
+                <input type="number" id="3email-reg" class="r-inputText" placeholder="Phone-number" required>
+                <label for="3email-reg"></label>
+            </div>
+        </div>
+        <div class="form-rotate">
+            <div id="rotate"></div>
+        </div>
     <div class="option">
         <div class="bg-active" id="bg-active"></div>
         <div class="changeType active" id="login">Login</div>
