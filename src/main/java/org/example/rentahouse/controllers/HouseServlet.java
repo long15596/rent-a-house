@@ -34,22 +34,21 @@ public class HouseServlet extends HttpServlet {
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) {
-        int id = Integer.parseInt(req.getParameter("id"));
-        String name = req.getParameter("name");
-        String address = req.getParameter("address");
-        double price = Double.parseDouble(req.getParameter("price"));
-        int roomNum = Integer.parseInt(req.getParameter("roomNum"));
-        int bathroomNum = Integer.parseInt(req.getParameter("bathroomNum"));
-        String status = req.getParameter("status");
-        String describe = req.getParameter("describe");
-        int idOwner = Integer.parseInt(req.getParameter("idOwner"));
-        Customer customer = customerService.findById(idOwner);
-        try {
-            houseService.add(new House(id, name, address, price, roomNum, bathroomNum, status, describe, customer));
-            resp.sendRedirect("/houses");
-        } catch (SQLException | IOException e) {
-            e.printStackTrace();
-        }
+//        String name = req.getParameter("name");
+//        String address = req.getParameter("address");
+//        double price = Double.parseDouble(req.getParameter("price"));
+//        int roomNum = Integer.parseInt(req.getParameter("roomNum"));
+//        int bathroomNum = Integer.parseInt(req.getParameter("bathroomNum"));
+//        String status = req.getParameter("status");
+//        String describe = req.getParameter("describe");
+//        int idOwner = Integer.parseInt(req.getParameter("idOwner"));
+//        Customer customer = customerService.findById(idOwner);
+//        try {
+//            houseService.add(new House(name, address, price, roomNum, bathroomNum, status, describe, customer));
+//            resp.sendRedirect("/houses");
+//        } catch (SQLException | IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {

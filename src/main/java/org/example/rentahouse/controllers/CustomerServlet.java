@@ -16,6 +16,7 @@ import java.util.List;
 @WebServlet(name = "customerServlet", value = "/customers")
 public class CustomerServlet extends HttpServlet {
     CustomerService customerService = new CustomerServiceImpl();
+    public static Customer customer = null;
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String postAct = req.getParameter("action");

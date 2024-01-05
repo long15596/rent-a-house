@@ -1,6 +1,7 @@
 package org.example.rentahouse.services;
 
 import org.example.rentahouse.models.Customer;
+import org.example.rentahouse.models.House;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -126,13 +127,21 @@ public class CustomerServiceImpl implements CustomerService{
     }
 
     @Override
-    public boolean CheckLogin(String username, String password) {
+    public boolean checkLogin(String username, String password) {
         for (Customer c : findAll()) {
             if (c.getUsername().equals(username) && c.getPassword().equals(password)) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public int findId(String username, String password) {
+        for (Customer c: findAll()){
+            if (c.getUsername().equals(username) && c.getPassword().equals(password)) return c.getId();
+        }
+        return -1;
     }
 
 }

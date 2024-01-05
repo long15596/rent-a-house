@@ -137,4 +137,24 @@ public class HouseServiceImpl implements HouseService{
         }
         return houseList;
     }
+
+    @Override
+    public List<House> emptyHouseList() {
+        List<House> houseList = new ArrayList<>();
+        for (House h: findAll()) {
+            if (h.getStatus().equals("empty")){
+                houseList.add(h);
+            }
+        }
+        return houseList;
+    }
+
+    @Override
+    public List<House> showOwnerHouse(Customer obj) {
+        List<House> houseList = new ArrayList<>();
+        for(House h: findAll()){
+            if(obj.getId() == h.getCustomer().getId()) houseList.add(h);
+        }
+        return houseList;
+    }
 }

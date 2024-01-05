@@ -24,6 +24,17 @@ public class House {
         this.customer = customer;
     }
 
+    public House(String name, String address, double price, int roomNum, int bathroomNum, String status, String describe, Customer customer) {
+        this.name = name;
+        this.address = address;
+        this.price = price;
+        this.roomNum = roomNum;
+        this.bathroomNum = bathroomNum;
+        this.status = status;
+        this.describe = describe;
+        this.customer = customer;
+    }
+
     public int getId() {
         return id;
     }

@@ -13,14 +13,26 @@
 </head>
 <body>
 <form action="" method="post">
-    <input type="number" id="id" name="id">
-    <input type="text" id="name" name="name">
-    <input type="text" id="address" name="address">
-    <input type="number" id="price" name="price">
-    <input type="number" id="roomNum" name="roomNum">
-    <input type="number" id="bathroomNum" name="bathroomNum">
-    <input type="text" id="status" name="status">
-    <input type="text" id="describe" name="describe">
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Price</th>
+            <th>Room</th>
+            <th>Bathroom</th>
+            <th>Status</th>
+            <th>Describe</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="name" name="name"></td>
+            <td><input type="text" id="address" name="address"></td>
+            <td><input type="number" id="price" name="price"></td>
+            <td><input type="number" id="roomNum" name="roomNum"></td>
+            <td><input type="number" id="bathroomNum" name="bathroomNum"></td>
+            <td><input type="text" id="status" name="status"></td>
+            <td><input type="text" id="describe" name="describe"></td>
+        </tr>
+    </table>
     <button>ADD NEW</button>
 </form>
 </body>
