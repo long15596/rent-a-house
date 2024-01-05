@@ -12,6 +12,7 @@ public class DatabaseConnection {
         } catch (ClassNotFoundException e) {
             return null;
         } catch (SQLException e) {
+
             throw new RuntimeException(e);
         }
     }
