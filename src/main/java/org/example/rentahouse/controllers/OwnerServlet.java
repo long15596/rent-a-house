@@ -70,7 +70,6 @@ public class OwnerServlet extends HttpServlet {
     private void edit(HttpServletRequest req, HttpServletResponse resp) {
         String name = req.getParameter("name");
         String username = req.getParameter("username");
-        String
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) {
