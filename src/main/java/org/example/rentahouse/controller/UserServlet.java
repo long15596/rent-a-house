@@ -19,6 +19,7 @@ public class UserServlet extends HttpServlet {
         String action = request.getParameter("action");
         if(action == null) {
             action = "";
+
         }
         switch (action){
             case "login":
@@ -47,6 +48,7 @@ public class UserServlet extends HttpServlet {
         } catch (Exception e) {
             throw new RuntimeException(e);
 
+
         }
     }
 
@@ -57,7 +59,7 @@ public class UserServlet extends HttpServlet {
             request.setAttribute("name", userName);
             HttpSession session = request.getSession();
             session.setAttribute("name", userName);
-            response.sendRedirect("/StaffServlet");
+            response.sendRedirect("/LoginServlet");
         } else {
             response.sendRedirect("/UserServlet?action=login");
         }
