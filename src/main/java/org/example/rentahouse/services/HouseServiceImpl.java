@@ -82,8 +82,8 @@ public class HouseServiceImpl implements HouseService{
     @Override
     public boolean update(House obj) throws SQLException {
         try(Connection connection = DatabaseConnection.getconnection()) {
-            PreparedStatement preparedStatement = connection.prepareStatement("update house set name = ?, address= ?,  price = ?, roomNum = ?, bathroomNum = ?, status = ?, `desribe` = ? , idOwner = ? where id = ?");
-            preparedStatement.setInt(9, obj.getId());
+            PreparedStatement preparedStatement = connection.prepareStatement("update house set name = ?, address = ?,  price = ?, roomNum = ?, bathroomNum = ?, status = ?, `describe` = ? where id = ?");
+            preparedStatement.setInt(8, obj.getId());
             preparedStatement.setString(1, obj.getName());
             preparedStatement.setString(2, obj.getAddress());
             preparedStatement.setDouble(3, obj.getPrice());
@@ -91,7 +91,6 @@ public class HouseServiceImpl implements HouseService{
             preparedStatement.setInt(5, obj.getBathroomNum());
             preparedStatement.setString(6, obj.getStatus());
             preparedStatement.setString(7, obj.getDescribe());
-            preparedStatement.setInt(8, obj.getCustomer().getId());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

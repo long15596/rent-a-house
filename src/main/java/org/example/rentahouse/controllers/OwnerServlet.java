@@ -32,11 +32,41 @@ public class OwnerServlet extends HttpServlet {
             case "edit":
                 showEditForm(req, resp);
                 break;
+            case "deleteHouse":
+                deleteHouse(req, resp);
+                break;
+            case "editInfo":
+                showEditInfoForm(req, resp);
+                break;
             default: showHouseList(req, resp);
         }
     }
 
+    private void showEditInfoForm(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            for (Customer c: customerService.findAll()){
+                if(owner.getId() == c.getId()) req.setAttribute("editCustomer", c);
+            }
+            req.getRequestDispatcher("customer/edit.jsp").forward(req,resp);
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void deleteHouse(HttpServletRequest req, HttpServletResponse resp) {
+        int id = Integer.parseInt(req.getParameter("id"));
+        try {
+            houseService.delete(id);
+            resp.sendRedirect("/owners");
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void showEditForm(HttpServletRequest req, HttpServletResponse resp) {
+        int editId = Integer.parseInt(req.getParameter("idEdit"));
+        House house = houseService.findById(editId);
+        req.setAttribute("editHouse", house);
         try {
             req.getRequestDispatcher("house/edit.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
@@ -63,13 +93,46 @@ public class OwnerServlet extends HttpServlet {
             case "edit":
                 edit(req, resp);
                 break;
+            case "editInfo":
+                editInfo(req, resp);
+                break;
             default: showHouseList(req, resp);
         }
     }
 
-    private void edit(HttpServletRequest req, HttpServletResponse resp) {
+    private void editInfo(HttpServletRequest req, HttpServletResponse resp) {
+        int id = Integer.parseInt(req.getParameter("idEdit"));
         String name = req.getParameter("name");
         String username = req.getParameter("username");
+        String password = req.getParameter("password");
+        String phone = req.getParameter("phone");
+        String role = req.getParameter("role");
+        String avt = req.getParameter("avt");
+        owner = new Customer(id, name, username, password, phone, role, avt);
+        try {
+            customerService.update(owner);
+            resp.sendRedirect("/owners");
+        } catch (IOException | SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void edit(HttpServletRequest req, HttpServletResponse resp) {
+        int id = Integer.parseInt(req.getParameter("idEdit"));
+        String name = req.getParameter("name");
+        String address = req.getParameter("address");
+        double price = Double.parseDouble(req.getParameter("price"));
+        int roomNum = Integer.parseInt(req.getParameter("roomNum"));
+        int bathroomNum = Integer.parseInt(req.getParameter("bathroomNum"));
+        String status = req.getParameter("status");
+        String describe = req.getParameter("describe");
+        Customer customer = owner;
+        try {
+            houseService.update(new House(id, name, address, price, roomNum, bathroomNum, status, describe, customer));
+            resp.sendRedirect("/owners");
+        } catch (IOException | SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void create(HttpServletRequest req, HttpServletResponse resp) {
@@ -91,6 +154,7 @@ public class OwnerServlet extends HttpServlet {
 
     private void showHouseList(HttpServletRequest req, HttpServletResponse resp) {
         List<House> houseList = houseService.showOwnerHouse(owner);
+        req.setAttribute("owner", owner);
         req.setAttribute("ownerHouse", houseList);
         try {
             req.getRequestDispatcher("house/list.jsp").forward(req, resp);

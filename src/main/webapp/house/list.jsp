@@ -12,7 +12,8 @@
     <title>Title</title>
 </head>
 <body>
-<h1>${owner.name} House</h1>
+<h1>${owner.username} House</h1>
+<a href="/owners?action=editInfo&idEdit=${owner.id}">Edit Info</a>
 <button><a href="/owners?action=create">Add New</a></button>
 <c:forEach items="${ownerHouse}" var="house">
     <h1>${house.id}</h1>
@@ -24,8 +25,8 @@
     <h1>${house.status}</h1>
     <h1>${house.describe}</h1>
     <h1>${house.customer.id}</h1>
-    <button><a href="/owners?action=edit&id=${house.id}">Edit</a></button>
-    <button><a href="/owners?action=delete&id=${house.id}">Delete</a></button>
+    <button><a href="/owners?action=edit&idEdit=${house.id}">Edit</a></button>
+    <button><a href="/owners?action=deleteHouse&id=${house.id}">Delete</a></button>
 </c:forEach>
 </body>
 </html>

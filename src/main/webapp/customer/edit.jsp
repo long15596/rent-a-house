@@ -14,7 +14,6 @@
 <form action="" method="post">
     <table>
         <tr>
-            <th>ID</th>
             <th>Name</th>
             <th>Username</th>
             <th>Password</th>
@@ -23,7 +22,6 @@
             <th>Avatar</th>
         </tr>
         <tr>
-            <td><input type="number" id="id" name="id" value="${editCustomer.id}"></td>
             <td><input type="text" id="name" name="name" value="${editCustomer.name}"></td>
             <td><input type="text" id="address" name="username" value="${editCustomer.username}"></td>
             <td><input type="text" id="price" name="password" value="${editCustomer.password}"></td>

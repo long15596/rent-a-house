@@ -12,15 +12,27 @@
 </head>
 <body>
 <form action="" method="post">
-    <input type="number" id="id" name="id" value="${editHouse.id}">
-    <input type="text" id="name" name="name" value="${editHouse.name}">
-    <input type="text" id="address" name="address" value="${editHouse.address}">
-    <input type="number" id="price" name="price" value="${editHouse.price}">
-    <input type="number" id="roomNum" name="roomNum" value="${editHouse.roomNum}">
-    <input type="number" id="bathroomNum" name="bathroomNum" value="${editHouse.bathroomNum}">
-    <input type="text" id="status" name="status" value="${editHouse.status}">
-    <input type="text" id="describe" name="describe" value="${editHouse.describe}">
-    <button>EDIT</button>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Price</th>
+            <th>Room</th>
+            <th>Bathroom</th>
+            <th>Status</th>
+            <th>Describe</th>
+        </tr>
+        <tr>
+            <td><input type="text" id="name" name="name" value="${editHouse.name}"></td>
+            <td><input type="text" id="address" name="address" value="${editHouse.address}"></td>
+            <td><input type="number" id="price" name="price" value="${editHouse.price}"></td>
+            <td><input type="number" id="roomNum" name="roomNum" value="${editHouse.roomNum}"></td>
+            <td><input type="number" id="bathroomNum" name="bathroomNum" value="${editHouse.bathroomNum}"></td>
+            <td><input type="text" id="status" name="status" value="${editHouse.status}"></td>
+            <td><input type="text" id="describe" name="describe" value="${editHouse.describe}"></td>
+        </tr>
+    </table>
+    <button>Edit</button>
 </form>
 </body>
 </html>

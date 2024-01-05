@@ -8,4 +8,5 @@ import java.util.List;
 public interface CustomerService extends GeneralService<Customer>{
     boolean checkLogin(String username, String password);
     int findId(String username, String password );
+
 }
