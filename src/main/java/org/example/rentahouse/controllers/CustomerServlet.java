@@ -20,16 +20,20 @@ public class CustomerServlet extends HttpServlet {
     private HouseService houseService = new HouseServiceImpl();
     public static Customer customer = null;
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String getAct = request.getParameter("action");
-        if (getAct == null) getAct = "";
-        switch (getAct) {
-            case "editInfo":
-                showEditInfo(request, response);
-                break;
-            case "rent":
-                showHouseInfo(request, response);
-                break;
-            default: showEmptyHouse(request, response);
+        if (customer != null){
+            String getAct = request.getParameter("action");
+            if (getAct == null) getAct = "";
+            switch (getAct) {
+                case "editInfo":
+                    showEditInfo(request, response);
+                    break;
+                case "rent":
+                    showHouseInfo(request, response);
+                    break;
+                default: showEmptyHouse(request, response);
+            }
+        } else {
+            response.sendRedirect("homepage/login.jsp");
         }
     }
 

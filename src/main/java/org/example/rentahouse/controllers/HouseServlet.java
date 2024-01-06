@@ -15,7 +15,6 @@ import java.io.IOException;
 @WebServlet(name = "houseServlet", value = "/house")
 public class HouseServlet extends HttpServlet {
     private InvoiceService invoiceService = new InvoiceServiceImpl();
-    public static int time = 0;
     public static House house = null;
     public static Customer customer = null;
     @Override
@@ -57,7 +56,7 @@ public class HouseServlet extends HttpServlet {
     private void showHouse(HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("customer", customer);
         req.setAttribute("rentHouse", house);
-        time = Integer.parseInt(req.getParameter("time"));
+        int time = Integer.parseInt(req.getParameter("time"));
         try {
             req.getRequestDispatcher("customer/rentHouse.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {

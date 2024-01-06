@@ -23,22 +23,26 @@ public class OwnerServlet extends HttpServlet {
     public static Customer owner = null;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String getAct = req.getParameter("action");
-        if (getAct == null) getAct = "";
-        switch (getAct) {
-            case "create":
-                showCreateForm(req, resp);
-                break;
-            case "edit":
-                showEditForm(req, resp);
-                break;
-            case "deleteHouse":
-                deleteHouse(req, resp);
-                break;
-            case "editInfo":
-                showEditInfoForm(req, resp);
-                break;
-            default: showHouseList(req, resp);
+        if(owner != null){
+            String getAct = req.getParameter("action");
+            if (getAct == null) getAct = "";
+            switch (getAct) {
+                case "create":
+                    showCreateForm(req, resp);
+                    break;
+                case "edit":
+                    showEditForm(req, resp);
+                    break;
+                case "deleteHouse":
+                    deleteHouse(req, resp);
+                    break;
+                case "editInfo":
+                    showEditInfoForm(req, resp);
+                    break;
+                default: showHouseList(req, resp);
+            }
+        } else {
+            resp.sendRedirect("homepage/login.jsp");
         }
     }
 
