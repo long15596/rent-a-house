@@ -41,9 +41,6 @@
     .wrapper .h5 {
         color: #ddd;
     }
-    .form{
-        height: 80%;
-    }
 
     .wrapper .form-group {
         border-bottom: 1px solid #ccc;
@@ -75,24 +72,6 @@
         opacity: 0;
     }
 
-    .wrapper .form-group .fa-phone {
-        transform: rotate(90deg);
-    }
-
-
-    .wrapper .option {
-        color: #ccc;
-        display: block;
-        position: relative;
-        padding-left: 25px;
-        margin-bottom: 12px;
-        cursor: pointer;
-        user-select: none
-    }
-
-    .wrapper .option:hover {
-        color: #eee;
-    }
 
     .wrapper .option input {
         position: absolute;
@@ -102,40 +81,6 @@
         width: 0
     }
 
-    .wrapper .checkmark {
-        position: absolute;
-        top: 3px;
-        left: 0;
-        height: 18px;
-        width: 18px;
-        background-color: inherit;
-        border: 2px solid #ccc;
-        border-radius: 2px
-    }
-
-    .wrapper .option input:checked~.checkmark {
-        transition: 300ms ease-in-out all
-    }
-
-    .wrapper .checkmark:after {
-        content: "\2713";
-        position: absolute;
-        display: none;
-        font-weight: 600;
-        color: #FFF;
-        font-size: 0.9rem;
-    }
-
-    .wrapper .option input:checked~.checkmark:after {
-        display: block
-    }
-
-    .wrapper .option .checkmark:after {
-        left: 2px;
-        top: -4px;
-        width: 5px;
-        height: 10px
-    }
 
     .wrapper .btn.btn-primary {
         position: relative;
@@ -153,12 +98,6 @@
         color: #fff;
     }
 
-    .wrapper .terms {
-        color: #bbb;
-        font-size: 0.85rem;
-        text-align: center;
-    }
-
     .wrapper .terms a {
         text-decoration: none;
         color: #eee;
@@ -168,30 +107,6 @@
         color: #fff;
     }
 
-    .wrapper .connect {
-        position: relative;
-    }
-
-    .wrapper .connect::after {
-        content: "or";
-        position: absolute;
-        top: -12px;
-        width: 80px;
-        left: 39%;
-        text-align: center;
-        color: #eee;
-        z-index: 100;
-        background-color: rgba(255, 255, 255, 0.315);
-        background-color: #1f5588;
-    }
-
-    .wrapper .social-links {
-        margin-top: 50px;
-        position: relative;
-        list-style: none;
-        display: flex;
-        justify-content: space-around;
-    }
 
     .wrapper .social-links li a {
         font-size: 1.2rem;
@@ -224,9 +139,7 @@
             padding: 20px;
         }
 
-        .wrapper .connect::after {
-            left: 38%;
-        }
+
     }
 
     @media(max-width: 345px) {
@@ -238,16 +151,14 @@
         display: flex;
         justify-content: center;
     }
-    .wrapper:nth-child(2) { /* thêm style cho login form */
-        order: -1; /* đặt form login bên trái */
-    }</style>
+   </style>
 </head>
 <body>
 <div class="main">
 
     <div class="wrapper" >
         <form action="#" style="margin-top: 127px">
-            <div class="h5 font-weight-bold text-center mb-3">Login</div>
+            <div class="h5 font-weight-bold text-center mb-3"><h1>Login</h1></div>
             <div class="form-group d-flex align-items-center">
                 <div class="icon"><span class="far fa-user"></span></div>
                 <input autocomplete="off" type="text" class="form-control" placeholder="Name">
@@ -257,7 +168,7 @@
                 <input autocomplete="off" type="password" class="form-control" placeholder="Password">
             </div>
 
-            <button class="btn btn-primary mb-3" style="text-align: center" type="submit">Sign In</button>
+            <button class="btn btn-primary mb-3" style="text-align: center;width: 100%;margin-top: 20px" type="submit">Sign In</button>
 
         </form>
     </div>
