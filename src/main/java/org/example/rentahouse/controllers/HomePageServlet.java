@@ -37,7 +37,7 @@ public class HomePageServlet extends HttpServlet {
 
     private void showSignUp(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            req.getRequestDispatcher("customer/create.jsp").forward(req, resp);
+            req.getRequestDispatcher("admin/createUser.jsp").forward(req, resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -55,7 +55,7 @@ public class HomePageServlet extends HttpServlet {
 
     private void showLoginForm(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            req.getRequestDispatcher("customer/login.jsp").forward(req,resp);
+            req.getRequestDispatcher("homepage/login.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }

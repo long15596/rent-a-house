@@ -70,7 +70,7 @@ public class HouseServlet extends HttpServlet {
         House house = houseService.findById(editId);
         request.setAttribute("editHouse", house);
         try {
-            request.getRequestDispatcher("house/edit.jsp").forward(request, response);
+            request.getRequestDispatcher("house/editOwnerInfo.jsp").forward(request, response);
         } catch (ServletException | IOException e) {
             e.printStackTrace();
         }
@@ -78,7 +78,7 @@ public class HouseServlet extends HttpServlet {
 
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
         try {
-            request.getRequestDispatcher("house/create.jsp").forward(request,response);
+            request.getRequestDispatcher("house/createHouse.jsp").forward(request,response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -90,7 +90,7 @@ public class HouseServlet extends HttpServlet {
         List<House> houseList = houseService.findAll();
         request.setAttribute("houseList", houseList);
         try {
-            request.getRequestDispatcher("house/list.jsp").forward(request,response);
+            request.getRequestDispatcher("house/ownerPage.jsp").forward(request,response);
         } catch (ServletException e) {
             e.printStackTrace();
         } catch (IOException e) {

@@ -97,7 +97,7 @@ public class CustomerServlet extends HttpServlet {
         Customer customer = customerService.findById(editId);
         request.setAttribute("editCustomer", customer);
         try {
-            request.getRequestDispatcher("customer/edit.jsp").forward(request, response);
+            request.getRequestDispatcher("customer/editOwnerInfo.jsp").forward(request, response);
         } catch (ServletException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
@@ -107,7 +107,7 @@ public class CustomerServlet extends HttpServlet {
 
     private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
         try {
-            request.getRequestDispatcher("customer/create.jsp").forward(request, response);
+            request.getRequestDispatcher("customer/createHouse.jsp").forward(request, response);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -117,7 +117,7 @@ public class CustomerServlet extends HttpServlet {
         List<Customer> customerList = customerService.findAll();
         request.setAttribute("customerList", customerList);
         try {
-            request.getRequestDispatcher("customer/list.jsp").forward(request,response);
+            request.getRequestDispatcher("customer/ownerPage.jsp").forward(request,response);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }

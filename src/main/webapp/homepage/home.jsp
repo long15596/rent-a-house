@@ -179,9 +179,6 @@
     </style>
 </head>
 <body>
-<a href="/home?action=login">Login</a>
-<a href="/home?action=signup">SignUp</a>
-<h1>Danh sách Nhà Hoạt Động</h1>
 <div class="search">
     <input type="text" class="ip-search">
 </div>
@@ -190,7 +187,7 @@
             <c:forEach items="${emptyHouse}" var="house">
                 <div class="item" style="background-image: url(#)">
                 <div class="content">
-                    <div class="name">BucuquaMD3</div>
+                    <div class="name">Empty House</div>
                     <div class="des">
                         <ul>
                             <li><h3>RoomName :${house.name}</h3></li>
@@ -202,7 +199,7 @@
                             <br>
                         </ul>
                     </div>
-                    <button><a href="/home?action=login">Thuê Nhà</a></button>
+                    <button><a href="/home?action=login">Rent</a></button>
                 </div>
                 </div>
         </c:forEach>

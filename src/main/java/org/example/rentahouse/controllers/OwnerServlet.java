@@ -47,7 +47,7 @@ public class OwnerServlet extends HttpServlet {
             for (Customer c: customerService.findAll()){
                 if(owner.getId() == c.getId()) req.setAttribute("editCustomer", c);
             }
-            req.getRequestDispatcher("customer/edit.jsp").forward(req,resp);
+            req.getRequestDispatcher("owner/editOwnerInfo.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class OwnerServlet extends HttpServlet {
         House house = houseService.findById(editId);
         req.setAttribute("editHouse", house);
         try {
-            req.getRequestDispatcher("house/edit.jsp").forward(req,resp);
+            req.getRequestDispatcher("owner/editOwnerInfo.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -76,7 +76,7 @@ public class OwnerServlet extends HttpServlet {
 
     private void showCreateForm(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            req.getRequestDispatcher("house/create.jsp").forward(req, resp);
+            req.getRequestDispatcher("owner/createHouse.jsp").forward(req, resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -157,7 +157,7 @@ public class OwnerServlet extends HttpServlet {
         req.setAttribute("owner", owner);
         req.setAttribute("ownerHouse", houseList);
         try {
-            req.getRequestDispatcher("house/list.jsp").forward(req, resp);
+            req.getRequestDispatcher("owner/ownerPage.jsp").forward(req, resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
