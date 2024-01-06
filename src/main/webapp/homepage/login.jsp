@@ -54,7 +54,8 @@
                     <span class="checkmark"></span>
                 </label>
             </div>
-            <div class="btn btn-primary mb-3" style="text-align: center">Sign up</div>
+            <button class="btn btn-primary mb-3" style="text-align: center" type="submit">Sign up</button>
+
         </form>
     </div>
     <div class="wrapper" >
@@ -69,7 +70,8 @@
                 <input autocomplete="off" type="password" class="form-control" placeholder="Password">
             </div>
 
-            <div class="btn btn-primary mb-3" style="text-align: center">Sign In</div>
+            <button class="btn btn-primary mb-3" style="text-align: center" type="submit">Sign In</button>
+
         </form>
     </div>
 
