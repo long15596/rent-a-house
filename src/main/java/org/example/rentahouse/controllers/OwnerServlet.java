@@ -47,7 +47,7 @@ public class OwnerServlet extends HttpServlet {
             for (Customer c: customerService.findAll()){
                 if(owner.getId() == c.getId()) req.setAttribute("editCustomer", c);
             }
-            req.getRequestDispatcher("owner/editOwnerInfo.jsp").forward(req,resp);
+            req.getRequestDispatcher("admin/editUserInfo.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -68,7 +68,7 @@ public class OwnerServlet extends HttpServlet {
         House house = houseService.findById(editId);
         req.setAttribute("editHouse", house);
         try {
-            req.getRequestDispatcher("owner/editOwnerInfo.jsp").forward(req,resp);
+            req.getRequestDispatcher("admin/editUserInfo.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -113,7 +113,7 @@ public class OwnerServlet extends HttpServlet {
             customerService.update(owner);
             resp.sendRedirect("/owners");
         } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
