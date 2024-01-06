@@ -2,8 +2,8 @@ package org.example.rentahouse.controllers;
 
 import org.example.rentahouse.models.Customer;
 import org.example.rentahouse.models.House;
-import org.example.rentahouse.services.InvoiceService;
-import org.example.rentahouse.services.InvoiceServiceImpl;
+import org.example.rentahouse.models.Invoice;
+import org.example.rentahouse.services.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,6 +15,8 @@ import java.io.IOException;
 @WebServlet(name = "houseServlet", value = "/house")
 public class HouseServlet extends HttpServlet {
     private InvoiceService invoiceService = new InvoiceServiceImpl();
+    private CustomerService customerService = new CustomerServiceImpl();
+    private HouseService houseService = new HouseServiceImpl();
     public static House house = null;
     public static Customer customer = null;
     @Override
@@ -31,9 +33,9 @@ public class HouseServlet extends HttpServlet {
 
     private void showInvoice(HttpServletRequest req, HttpServletResponse resp) {
         try {
-            req.getRequestDispatcher("customer/createInvoice.jsp").forward(req,resp);
+            req.getRequestDispatcher("customer/invoice.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
-           e.printStackTrace();
+            e.printStackTrace();
         }
     }
 
@@ -43,20 +45,21 @@ public class HouseServlet extends HttpServlet {
         if (postAct == null) postAct = "";
         switch (postAct){
             case "rent":
-                createInvoice(req, resp);
+                createInvoice(req,resp);
                 break;
             default: showHouse(req, resp);
         }
     }
 
     private void createInvoice(HttpServletRequest req, HttpServletResponse resp) {
-
+        int time = Integer.parseInt(req.getParameter("time"));
+        Invoice invoice = new Invoice(customer, house, time, invoiceService.TotalAmount(house, time));
+        req.setAttribute("invoice", invoice);
     }
 
     private void showHouse(HttpServletRequest req, HttpServletResponse resp) {
         req.setAttribute("customer", customer);
         req.setAttribute("rentHouse", house);
-        int time = Integer.parseInt(req.getParameter("time"));
         try {
             req.getRequestDispatcher("customer/rentHouse.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {

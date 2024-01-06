@@ -12,7 +12,6 @@
 </head>
 <body>
 <h1>${customer.username}</h1>
-<form action="" method="post">
     <table style="border: solid 1px black">
         <tr>
             <th>ID</th>
@@ -35,11 +34,10 @@
             <td>${rentHouse.bathroomNum}</td>
             <td>${rentHouse.status}</td>
             <td>${rentHouse.describe}</td>
-            <td>${rentHouse.customer.name}</td>
-            <td><input type="number" id="id" name="time"></td>
+            <td>${rentHouse.customer.username}</td>
+            <td><input type="number" id="time" name="time"></td>
             <td><a href="/house?action=rent&id=${rentHouse.id}">Rent</a></td>
         </tr>
     </table>
-</form>
 </body>
 </html>
