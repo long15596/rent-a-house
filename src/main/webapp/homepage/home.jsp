@@ -281,7 +281,7 @@
 <div id="container"  style="">
     <div id="slide">
         <c:forEach items="${emptyHouse}" var="house">
-            <div class="item" style="background-image: url(#)">
+            <div class="item" style="background-image: url(${house.describe})">
                 <div class="content">
                     <div class="name">Empty House</div>
                     <div class="des">
