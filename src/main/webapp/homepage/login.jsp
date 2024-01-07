@@ -283,7 +283,7 @@ To change this template use File | Settings | File Templates.
         .main {
             display: flex;
             justify-content: center;
-        }
+        }}
 
     </style>
 </head>
