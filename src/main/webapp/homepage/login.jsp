@@ -170,13 +170,19 @@ To change this template use File | Settings | File Templates.
                         <input autocomplete="off" type="password" class="form-control" placeholder="Password" name="password">
                     </div>
                     <button class="btn btn-primary mb-3" style="text-align: center;width: 100%;margin-top: 20px">Sign In</button>
+
+                        <h4 class="middle-text"style="margin-top: 20px">Bạn chưa có tài khoản? </h4>
+
+                    <button class="btn btn-primary mb-3" style="text-align: center;width: 100%;margin-top: 20px;color: white"><a href="http://localhost:8080/home?action=signup" >SignUp Now!!!</a></button>
                 </form>
             </div>
         </div>
     </div>
 
     <script>
-
+function check(){
+    window.location.href='http://localhost:8080/home?action=signup'
+}
     </script>
 </div>
 </body>

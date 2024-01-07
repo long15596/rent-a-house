@@ -58,7 +58,7 @@
             color: #e8e8e8;
         }
 
-        .wrapper .form-group .form-control {
+        .wrapper .form-group .form-control,select {
             background: inherit;
             border: none;
             width: 100%;
@@ -209,11 +209,12 @@
 
 
 
+
     </style>
 </head>
 <body>
 <div class="wrapper">
-    <form action="#">
+    <form action="#" method="post">
         <div class="h5 font-weight-bold text-center mb-3"><h1>Register</h1></div>
         <div class="form-group d-flex align-items-center">
             <div class="icon"><span class="far fa-user"></span></div>
@@ -240,17 +241,12 @@
             <div class="icon btn"><span class="fas fa-eye-slash"></span></div>
         </div>
         <div class="mb-2">
-            <label class="option">Visitor
-                <input type="radio" name="role" value="guest" checked>
-                <span class="checkmark"></span>
-            </label>
-
-            <label class="option">Owner
-                <input type="radio" name="role" value="host">
-                <span class="checkmark"></span>
-            </label>
+            <select>
+                <option>customer</option>
+                <option>owner</option>
+            </select>
         </div>
-        <button class="btn btn-primary mb-3" style="text-align: center;width: 100%" type="submit">Sign up</button>
+        <button class="btn btn-primary mb-3" style="text-align: center;width: 100%;margin-top: 50px" type="button" >Sign up</button>
 
     </form>
 </div>

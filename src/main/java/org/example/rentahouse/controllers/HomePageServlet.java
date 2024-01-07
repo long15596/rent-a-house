@@ -69,8 +69,16 @@ public class HomePageServlet extends HttpServlet {
             case "login":
                 login(req, resp);
                 break;
+            case "register":
+                register(req,resp);
+                break;
+
             default: showHouseList(req, resp);
         }
+    }
+
+    private void register(HttpServletRequest req, HttpServletResponse resp) {
+
     }
 
     private void login(HttpServletRequest req, HttpServletResponse resp) {
