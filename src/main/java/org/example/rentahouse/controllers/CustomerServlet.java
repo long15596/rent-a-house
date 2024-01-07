@@ -37,7 +37,7 @@ public class CustomerServlet extends HttpServlet {
         String name = req.getParameter("name");
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        String phone = req.getParameter("phoen");
+        String phone = req.getParameter("phone");
         String role = req.getParameter("role");
         String avt = req.getParameter("avt");
         Customer customer = new Customer(id, name, username, password, phone, role, avt);

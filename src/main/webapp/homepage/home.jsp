@@ -49,6 +49,8 @@
             display: block;
             transition: 0.5s;
             background-size: cover;
+            ;
+
             position: absolute;
             z-index: 1;
             top: 50%;
