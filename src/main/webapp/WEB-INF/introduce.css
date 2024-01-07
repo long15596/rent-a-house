@@ -4,7 +4,7 @@
 }
 
 body {
-    background-image: url(#);
+    background-image: url("../7.jpg");
 
     object-fit: cover;
 
@@ -51,7 +51,7 @@ body {
     opacity: 0.2;
 }
 .nav-link {
-    background-image: url(#);
+    background-image: url("../7.jpg");
 }
 
 .logo-img {
@@ -93,14 +93,14 @@ p:hover {
     text-align: center;
 }
 .nav-link ul li a{
-    background-image:url(#);
+    background-image:url("../7.jpg");
     color: white;
 }
 .nav-link ul li a:hover{
     background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANwAAADcCAMAAAAshD+zAAAAA1BMVEUAAACnej3aAAAARklEQVR4nO3BMQEAAADCoPVPbQsvoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA/ga97AABJRXjUgAAAABJRU5ErkJggg==");
 }
 .btn-btn {
-    background-image: url(#);
+    background-image: url("../7.jpg");
 
     height: 42px;
 }
