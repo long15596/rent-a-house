@@ -39,10 +39,22 @@ public class OwnerServlet extends HttpServlet {
                 case "editInfo":
                     showEditInfoForm(req, resp);
                     break;
+                case "logout":
+                    logout(req, resp);
+                    break;
                 default: showHouseList(req, resp);
             }
         } else {
             resp.sendRedirect("homepage/login.jsp");
+        }
+    }
+
+    private void logout(HttpServletRequest req, HttpServletResponse resp) {
+        owner = null;
+        try {
+            resp.sendRedirect("/home");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 

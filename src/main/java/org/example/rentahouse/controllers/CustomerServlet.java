@@ -30,10 +30,40 @@ public class CustomerServlet extends HttpServlet {
                 case "rent":
                     showHouseInfo(request, response);
                     break;
+                case "logout":
+                    logout(request, response);
+                    break;
+                case "showRoomType":
+                    showByRoomType(request,response);
+                    break;
                 default: showEmptyHouse(request, response);
             }
         } else {
-            response.sendRedirect("homepage/login.jsp");
+            try {
+                request.getRequestDispatcher("homepage/login.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void showByRoomType(HttpServletRequest request, HttpServletResponse response) {
+        int roomNum = Integer.parseInt(request.getParameter("roomNum"));
+        request.setAttribute("roomType", houseService.roomType());
+        request.setAttribute("emptyHouse", houseService.findByRoomType(roomNum, houseService.emptyHouseList()));
+        try {
+            request.getRequestDispatcher("/customers").forward(request,response);
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
+        customer = null;
+        try {
+            response.sendRedirect("/home");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -93,6 +123,7 @@ public class CustomerServlet extends HttpServlet {
         List<House> emptyHouse = houseService.emptyHouseList();
         req.setAttribute("customer", customer);
         req.setAttribute("emptyHouse", emptyHouse);
+        req.setAttribute("roomType", houseService.roomType());
         try {
             req.getRequestDispatcher("customer/customerPage.jsp").forward(req, resp);
         } catch (IOException | ServletException e) {

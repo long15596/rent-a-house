@@ -13,7 +13,22 @@
 </head>
 <body>
 <h1>${customer.username}</h1>
+<button><a href="/customers?action=logout">Logout</a></button>
 <button><a href="/customers?action=editInfo&id=${customer.id}">Edit Info</a></button>
+<label> Room
+    <select>
+        <c:forEach items="${roomType}" var="roomNum">
+            <option><a href="/customers?action=showRoomType&roomNum=${roomNum}">${roomNum}</a></option>
+        </c:forEach>
+    </select>
+</label>
+<label> Bathroom
+    <select>
+        <c:forEach items="${roomType}" var="roomNum">
+            <option><a href="/customers?action=showRoomType&roomNum=${roomNum}">${roomNum}</a></option>
+        </c:forEach>
+    </select>
+</label>
 <c:forEach items="${emptyHouse}" var="house">
     <table style="border: solid 1px black">
         <tr>
