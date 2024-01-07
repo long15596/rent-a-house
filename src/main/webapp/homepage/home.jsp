@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <html>
 <head>
-    <title>Title</title>
+    <title>Home</title>
     <style>
         * {
             margin: 0;
@@ -36,7 +36,6 @@
             background-color: #f5f5f5;
             box-shadow: 0 30px 50px rgba(0, 0, 0, 0);
         }
-
         #slide {
             width: max-content;
             margin-top: 50px;
@@ -49,8 +48,6 @@
             display: block;
             transition: 0.5s;
             background-size: cover;
-            ;
-
             position: absolute;
             z-index: 1;
             top: 50%;
@@ -66,7 +63,6 @@
             border-radius: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
             box-shadow: none;
         }
 
@@ -89,10 +85,9 @@
 
         .item .content {
             position: absolute;
-            top: 45%;
+            top: 50%;
             left: 200px;
-            width: 400px;
-            height: 350px;
+            width: 300px;
             text-align: left;
             padding: 0;
             color: black;
@@ -130,6 +125,9 @@
             border: none;
             opacity: 0;
             animation: showcontent 1s ease-in-out 0.6s forwards;
+            height: 40px;
+            width: 60%;
+            margin-left: 20px;
             font-size: 15px;
 
         }
@@ -173,9 +171,7 @@
             overflow: hidden;
         }
 
-
-        header {
-            position: absolute;
+        .search {
             top: 0;
             left: 0;
             width: 100%;
@@ -282,8 +278,8 @@
 </header>
 <div id="container"  style="">
     <div id="slide">
-        <c:forEach items="${emptyHouse}" var="house">
-            <div class="item" style="background-image: url(${house.describe})">
+            <c:forEach items="${emptyHouse}" var="house">
+                <div class="item" style="background-image: url(${house.describe})">
                 <div class="content">
                     <div class="name">Empty House</div>
                     <div class="des">
@@ -297,6 +293,7 @@
                             <br>
                         </ul>
                     </div>
+                    <button onclick="check()" style="font-size: 19px">Đặt phòng ngay</button>
                     <button onclick="showBookingForm()" style="font-size:19px">Đặt phòng ngay</button>
                     <form class="bookingForm" style="display:none;">
                         <label for="checkInTime">Thời gian check-in:</label>
@@ -321,6 +318,9 @@
     document.getElementById('pre').onclick = function () {
         let list = document.querySelectorAll('.item');
         document.getElementById('slide').prepend(list[list.length-1])
+    }
+    function check(){
+        window.location.href='/home?action=login'
     }
     function showBookingForm() {
         var forms = document.querySelectorAll(".bookingForm");

@@ -2,13 +2,16 @@ package org.example.rentahouse.services;
 
 import org.example.rentahouse.models.Customer;
 import org.example.rentahouse.models.House;
+import org.example.rentahouse.models.Invoice;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class HouseServiceImpl implements HouseService{
     CustomerService customerService = new CustomerServiceImpl();
@@ -152,6 +155,38 @@ public class HouseServiceImpl implements HouseService{
         List<House> houseList = new ArrayList<>();
         for(House h: findAll()){
             if(obj.getId() == h.getCustomer().getId()) houseList.add(h);
+        }
+        return houseList;
+    }
+
+    @Override
+    public Set<Integer> roomType() {
+        Set<Integer> roomType = new HashSet<>();
+        for (House h: findAll()) roomType.add(h.getRoomNum());
+        return roomType;
+    }
+
+    @Override
+    public Set<Integer> bathroomType() {
+        Set<Integer> bathroomType = new HashSet<>();
+        for (House h: findAll()) bathroomType.add(h.getBathroomNum());
+        return bathroomType;
+    }
+
+    @Override
+    public List<House> findByRoomType(int roomNum, List<House> houses) {
+        List<House> houseList = new ArrayList<>();
+        for (House h: houses){
+            if (h.getRoomNum() == roomNum) houseList.add(h);
+        }
+        return houseList;
+    }
+
+    @Override
+    public List<House> findByBatchRoomType(int bathroomNum, List<House> houses) {
+        List<House> houseList = new ArrayList<>();
+        for (House h: houses){
+            if (h.getBathroomNum() == bathroomNum) houseList.add(h);
         }
         return houseList;
     }

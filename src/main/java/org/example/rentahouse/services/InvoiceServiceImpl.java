@@ -99,4 +99,15 @@ public class InvoiceServiceImpl implements InvoiceService{
     public double TotalAmount(House house, int time) {
         return house.getPrice() * time;
     }
+
+    @Override
+    public List<Invoice> findByIdCustomer(Customer obj) {
+        List<Invoice> invoiceList = new ArrayList<>();
+        for(Invoice i: findAll()){
+            if (obj.getId() == i.getCustomer().getId()){
+                invoiceList.add(i);
+            }
+        }
+        return invoiceList;
+    }
 }

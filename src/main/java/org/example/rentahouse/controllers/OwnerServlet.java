@@ -23,22 +23,38 @@ public class OwnerServlet extends HttpServlet {
     public static Customer owner = null;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String getAct = req.getParameter("action");
-        if (getAct == null) getAct = "";
-        switch (getAct) {
-            case "create":
-                showCreateForm(req, resp);
-                break;
-            case "edit":
-                showEditForm(req, resp);
-                break;
-            case "deleteHouse":
-                deleteHouse(req, resp);
-                break;
-            case "editInfo":
-                showEditInfoForm(req, resp);
-                break;
-            default: showHouseList(req, resp);
+        if(owner != null){
+            String getAct = req.getParameter("action");
+            if (getAct == null) getAct = "";
+            switch (getAct) {
+                case "create":
+                    showCreateForm(req, resp);
+                    break;
+                case "edit":
+                    showEditForm(req, resp);
+                    break;
+                case "deleteHouse":
+                    deleteHouse(req, resp);
+                    break;
+                case "editInfo":
+                    showEditInfoForm(req, resp);
+                    break;
+                case "logout":
+                    logout(req, resp);
+                    break;
+                default: showHouseList(req, resp);
+            }
+        } else {
+            resp.sendRedirect("homepage/login.jsp");
+        }
+    }
+
+    private void logout(HttpServletRequest req, HttpServletResponse resp) {
+        owner = null;
+        try {
+            resp.sendRedirect("/home");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -47,7 +63,7 @@ public class OwnerServlet extends HttpServlet {
             for (Customer c: customerService.findAll()){
                 if(owner.getId() == c.getId()) req.setAttribute("editCustomer", c);
             }
-            req.getRequestDispatcher("owner/editOwnerInfo.jsp").forward(req,resp);
+            req.getRequestDispatcher("admin/editUserInfo.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -68,7 +84,7 @@ public class OwnerServlet extends HttpServlet {
         House house = houseService.findById(editId);
         req.setAttribute("editHouse", house);
         try {
-            req.getRequestDispatcher("owner/editOwnerInfo.jsp").forward(req,resp);
+            req.getRequestDispatcher("admin/editUserInfo.jsp").forward(req,resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
@@ -113,7 +129,7 @@ public class OwnerServlet extends HttpServlet {
             customerService.update(owner);
             resp.sendRedirect("/owners");
         } catch (IOException | SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 

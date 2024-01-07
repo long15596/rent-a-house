@@ -2,10 +2,8 @@ package org.example.rentahouse.controllers;
 
 import org.example.rentahouse.models.Customer;
 import org.example.rentahouse.models.House;
-import org.example.rentahouse.services.CustomerService;
-import org.example.rentahouse.services.CustomerServiceImpl;
-import org.example.rentahouse.services.HouseService;
-import org.example.rentahouse.services.HouseServiceImpl;
+import org.example.rentahouse.models.Invoice;
+import org.example.rentahouse.services.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,87 +11,58 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
-@WebServlet(name = "houseServlet", value = "/houses")
+@WebServlet(name = "houseServlet", value = "/house")
 public class HouseServlet extends HttpServlet {
-    HouseService houseService = new HouseServiceImpl();
-    CustomerService customerService = new CustomerServiceImpl();
+    private InvoiceService invoiceService = new InvoiceServiceImpl();
+    private CustomerService customerService = new CustomerServiceImpl();
+    private HouseService houseService = new HouseServiceImpl();
+    public static House house = null;
+    public static Customer customer = null;
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String getAct = req.getParameter("action");
+        if(getAct == null) getAct = "";
+        switch (getAct){
+            case "rent":
+                showInvoice(req, resp);
+                break;
+            default: showHouse(req, resp);
+        }
+    }
+
+    private void showInvoice(HttpServletRequest req, HttpServletResponse resp) {
+        try {
+            req.getRequestDispatcher("customer/invoice.jsp").forward(req,resp);
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String postAct = req.getParameter("action");
         if (postAct == null) postAct = "";
         switch (postAct){
-            case "create":
-                create(req, resp);
+            case "rent":
+                createInvoice(req,resp);
                 break;
-            default: showList(req, resp);
+            default: showHouse(req, resp);
         }
     }
 
-    private void create(HttpServletRequest req, HttpServletResponse resp) {
-//        String name = req.getParameter("name");
-//        String address = req.getParameter("address");
-//        double price = Double.parseDouble(req.getParameter("price"));
-//        int roomNum = Integer.parseInt(req.getParameter("roomNum"));
-//        int bathroomNum = Integer.parseInt(req.getParameter("bathroomNum"));
-//        String status = req.getParameter("status");
-//        String describe = req.getParameter("describe");
-//        int idOwner = Integer.parseInt(req.getParameter("idOwner"));
-//        Customer customer = customerService.findById(idOwner);
-//        try {
-//            houseService.add(new House(name, address, price, roomNum, bathroomNum, status, describe, customer));
-//            resp.sendRedirect("/houses");
-//        } catch (SQLException | IOException e) {
-//            e.printStackTrace();
-//        }
+    private void createInvoice(HttpServletRequest req, HttpServletResponse resp) {
+        int time = Integer.parseInt(req.getParameter("time"));
+        Invoice invoice = new Invoice(customer, house, time, invoiceService.TotalAmount(house, time));
+        req.setAttribute("invoice", invoice);
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String getAct = request.getParameter("action");
-        if(getAct == null) getAct = "";
-        switch (getAct) {
-            case "create":
-                showCreateForm(request, response);
-                break;
-            case "edit":
-                showEditForm(request, response);
-                break;
-            default: showList(request, response);
-        }
-    }
-
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
-        int editId = Integer.parseInt(request.getParameter("id"));
-        House house = houseService.findById(editId);
-        request.setAttribute("editHouse", house);
+    private void showHouse(HttpServletRequest req, HttpServletResponse resp) {
+        req.setAttribute("customer", customer);
+        req.setAttribute("rentHouse", house);
         try {
-            request.getRequestDispatcher("house/editOwnerInfo.jsp").forward(request, response);
-        } catch (ServletException | IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            request.getRequestDispatcher("house/createHouse.jsp").forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showList(HttpServletRequest request, HttpServletResponse response) {
-        List<House> houseList = houseService.findAll();
-        request.setAttribute("houseList", houseList);
-        try {
-            request.getRequestDispatcher("house/ownerPage.jsp").forward(request,response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            req.getRequestDispatcher("customer/rentHouse.jsp").forward(req,resp);
+        } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
     }

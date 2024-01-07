@@ -8,6 +8,13 @@ public class Invoice {
     private double totalAmount;
     public Invoice(){}
 
+    public Invoice(Customer customer, House house, int time, double totalAmount) {
+        this.customer = customer;
+        this.house = house;
+        this.time = time;
+        this.totalAmount = totalAmount;
+    }
+
     public Invoice(int id, Customer customer, House house, int time, double totalAmount) {
         this.id = id;
         this.customer = customer;

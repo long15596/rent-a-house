@@ -13,7 +13,8 @@
 </head>
 <body>
 <h1>${owner.username} House</h1>
-<a href="/owners?action=editInfo&idEdit=${owner.id}">Edit Info</a>
+<button><a href="/owners?action=logout">Logout</a></button>
+<button><a href="/owners?action=editInfo&idEdit=${owner.id}">Edit Info</a></button>
 <button><a href="/owners?action=create">Add New</a></button>
 <c:forEach items="${ownerHouse}" var="house">
     <table style="border: solid 1px black">

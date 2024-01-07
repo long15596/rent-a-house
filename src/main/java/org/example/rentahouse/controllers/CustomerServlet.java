@@ -1,8 +1,9 @@
 package org.example.rentahouse.controllers;
 
 import org.example.rentahouse.models.Customer;
-import org.example.rentahouse.services.CustomerService;
-import org.example.rentahouse.services.CustomerServiceImpl;
+import org.example.rentahouse.models.House;
+import org.example.rentahouse.models.Invoice;
+import org.example.rentahouse.services.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -15,20 +16,88 @@ import java.util.List;
 
 @WebServlet(name = "customerServlet", value = "/customers")
 public class CustomerServlet extends HttpServlet {
-    CustomerService customerService = new CustomerServiceImpl();
+    private CustomerService customerService = new CustomerServiceImpl();
+    private HouseService houseService = new HouseServiceImpl();
     public static Customer customer = null;
+    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        if (customer != null){
+            String getAct = request.getParameter("action");
+            if (getAct == null) getAct = "";
+            switch (getAct) {
+                case "editInfo":
+                    showEditInfo(request, response);
+                    break;
+                case "rent":
+                    showHouseInfo(request, response);
+                    break;
+                case "logout":
+                    logout(request, response);
+                    break;
+                case "showRoomType":
+                    showByRoomType(request,response);
+                    break;
+                default: showEmptyHouse(request, response);
+            }
+        } else {
+            try {
+                request.getRequestDispatcher("homepage/login.jsp").forward(request, response);
+            } catch (ServletException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private void showByRoomType(HttpServletRequest request, HttpServletResponse response) {
+        int roomNum = Integer.parseInt(request.getParameter("roomNum"));
+        request.setAttribute("roomType", houseService.roomType());
+        request.setAttribute("emptyHouse", houseService.findByRoomType(roomNum, houseService.emptyHouseList()));
+        try {
+            request.getRequestDispatcher("/customers").forward(request,response);
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void logout(HttpServletRequest request, HttpServletResponse response) {
+        customer = null;
+        try {
+            response.sendRedirect("/home");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void showHouseInfo(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            int idHouse = Integer.parseInt(request.getParameter("id"));
+            HouseServlet.house = houseService.findById(idHouse);
+            HouseServlet.customer = customer;
+            response.sendRedirect("/house");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showEditInfo(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            for (Customer c: customerService.findAll()){
+                if(customer.getId() == c.getId()) request.setAttribute("editCustomer", c);
+            }
+            request.getRequestDispatcher("admin/editUserInfo.jsp").forward(request, response);
+        } catch (IOException | ServletException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String postAct = req.getParameter("action");
         if (postAct == null) postAct = "";
         switch (postAct){
-            case "create":
-                create(req, resp);
+            case "editInfo":
+                editInfo(req, resp);
                 break;
-            case "edit":
-                edit(req, resp);
-                break;
-            default: showList(req, resp);
+            default: showEmptyHouse(req, resp);
         }
     }
 
@@ -48,7 +117,7 @@ public class CustomerServlet extends HttpServlet {
         }
     }
 
-    private void create(HttpServletRequest req, HttpServletResponse resp) {
+    private void editInfo(HttpServletRequest req, HttpServletResponse resp) {
         int id = Integer.parseInt(req.getParameter("id"));
         String name = req.getParameter("name");
         String username = req.getParameter("username");
@@ -56,68 +125,22 @@ public class CustomerServlet extends HttpServlet {
         String phone = req.getParameter("phone");
         String role = req.getParameter("role");
         String avt = req.getParameter("avt");
+        customer = new Customer(id, name, username, password, phone, role, avt);
         try {
-            customerService.add(new Customer(id, name, username, password, phone, role, avt));
+            customerService.update(customer);
             resp.sendRedirect("/customers");
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String getAct = request.getParameter("action");
-        if (getAct == null) getAct = "";
-        switch (getAct) {
-            case "create":
-                showCreateForm(request, response);
-                break;
-            case "edit":
-                showEditForm(request, response);
-                break;
-            case "delete":
-                delete(request, response);
-                break;
-            default: showList(request, response);
-        }
-    }
-
-    private void delete(HttpServletRequest request, HttpServletResponse response) {
-        int deleteId = Integer.parseInt(request.getParameter("id"));
+    private void showEmptyHouse(HttpServletRequest req, HttpServletResponse resp) {
+        List<House> emptyHouse = houseService.emptyHouseList();
+        req.setAttribute("customer", customer);
+        req.setAttribute("emptyHouse", emptyHouse);
+        req.setAttribute("roomType", houseService.roomType());
         try {
-            customerService.delete(deleteId);
-            response.sendRedirect("/customers");
-        } catch (IOException | SQLException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private void showEditForm(HttpServletRequest request, HttpServletResponse response) {
-        int editId = Integer.parseInt(request.getParameter("id"));
-        Customer customer = customerService.findById(editId);
-        request.setAttribute("editCustomer", customer);
-        try {
-            request.getRequestDispatcher("customer/editOwnerInfo.jsp").forward(request, response);
-        } catch (ServletException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void showCreateForm(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            request.getRequestDispatcher("customer/createHouse.jsp").forward(request, response);
-        } catch (IOException | ServletException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showList(HttpServletRequest request, HttpServletResponse response) {
-        List<Customer> customerList = customerService.findAll();
-        request.setAttribute("customerList", customerList);
-        try {
-            request.getRequestDispatcher("customer/ownerPage.jsp").forward(request,response);
+            req.getRequestDispatcher("customer/customerPage.jsp").forward(req, resp);
         } catch (IOException | ServletException e) {
             e.printStackTrace();
         }
