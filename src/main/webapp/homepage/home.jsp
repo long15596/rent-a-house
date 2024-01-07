@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <html>
 <head>
-    <title>Title</title>
+    <title>Home</title>
     <style>
         body {
             background-color: #eaeaea;
@@ -103,6 +103,7 @@
             font-weight: bold;
             opacity: 0;
             animation: showcontent 1s ease-in-out 1 forwards;
+           text-align: center;
         }
 
         .item .des {
@@ -118,6 +119,9 @@
             border: none;
             opacity: 0;
             animation: showcontent 1s ease-in-out 0.6s forwards;
+            height: 40px;
+            width: 60%;
+            margin-left: 20px;
 
         }
 
@@ -185,7 +189,7 @@
 <div id="container"  style="">
     <div id="slide">
             <c:forEach items="${emptyHouse}" var="house">
-                <div class="item" style="background-image: url(#)">
+                <div class="item" style="background-image: url(${house.describe})">
                 <div class="content">
                     <div class="name">Empty House</div>
                     <div class="des">
@@ -199,7 +203,7 @@
                             <br>
                         </ul>
                     </div>
-                    <button><a href="/home?action=login">Rent</a></button>
+                    <button onclick="check()" style="font-size: 19px">Đặt phòng ngay</button>
                 </div>
                 </div>
         </c:forEach>
@@ -217,6 +221,9 @@
     document.getElementById('pre').onclick = function () {
         let list = document.querySelectorAll('.item');
         document.getElementById('slide').prepend(list[list.length-1])
+    }
+    function check(){
+        window.location.href='/home?action=login'
     }
 </script>
 </body>

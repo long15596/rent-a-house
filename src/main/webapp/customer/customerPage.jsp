@@ -11,8 +11,44 @@
 <head>
     <title>Title</title>
 </head>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    #myInput {
+        background-image: url(#);
+        background-position: 10px 10px;
+        background-repeat: no-repeat;
+        width: 100%;
+        font-size: 16px;
+        padding: 12px 20px 12px 40px;
+        border: 1px solid #ddd;
+        margin-bottom: 12px;
+    }
+
+    #myTable {
+        border-collapse: collapse;
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 18px;
+    }
+
+    #myTable th, #myTable td {
+        text-align: left;
+        padding: 12px;
+    }
+
+    #myTable tr {
+        border-bottom: 1px solid #ddd;
+    }
+
+    #myTable tr.header, #myTable tr:hover {
+        background-color: #f1f1f1;
+    }
+</style>
 <body>
-<h1>${customer.username}</h1>
+
 <button><a href="/customers?action=logout">Logout</a></button>
 <button><a href="/customers?action=editInfo&id=${customer.id}">Edit Info</a></button>
 <label> Room
@@ -29,19 +65,22 @@
         </c:forEach>
     </select>
 </label>
-<c:forEach items="${emptyHouse}" var="house">
-    <table style="border: solid 1px black">
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Address</th>
-            <th>Price</th>
-            <th>Room</th>
-            <th>Bathroom</th>
-            <th>Status</th>
-            <th>Describe</th>
-            <th>Owner</th>
-        </tr>
+<h2>CUSTOMER : ${customer.username}</h2>
+<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+<table id="myTable" border="solid 1px black">
+    <tr class="header">
+        <th>ID</th>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Price</th>
+        <th>Room</th>
+        <th>Bathroom</th>
+        <th>Status</th>
+        <th>Describe</th>
+        <th colspan="2">Owner</th>
+    </tr>
+
+    <c:forEach items="${emptyHouse}" var="house">
         <tr>
             <td>${house.id}</td>
             <td>${house.name}</td>
@@ -50,11 +89,33 @@
             <td>${house.roomNum}</td>
             <td>${house.bathroomNum}</td>
             <td>${house.status}</td>
-            <td>${house.describe}</td>
+            <td><img src="${house.describe}" style="width: 80px;height: 100px"> </td>
             <td>${house.customer.name}</td>
             <td><a href="/customers?action=rent&id=${house.id}">Rent</a></td>
         </tr>
-    </table>
-</c:forEach>
+    </c:forEach>
+</table>
+
+<script>
+    function myFunction() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+
 </body>
 </html>
