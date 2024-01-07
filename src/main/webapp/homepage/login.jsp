@@ -1,9 +1,9 @@
 <%--
-  Created by IntelliJ IDEA.
-  User: lyngo
-  Date: 04/01/2024
-  Time: 10:59 PM
-  To change this template use File | Settings | File Templates.
+Created by IntelliJ IDEA.
+User: lyngo
+Date: 04/01/2024
+Time: 10:59 PM
+To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
@@ -151,28 +151,25 @@
         display: flex;
         justify-content: center;
     }
-   </style>
+    </style>
 </head>
 <body>
 <div class="main">
 
     <div class="wrapper" >
-        <form action="#" style="margin-top: 127px">
+        <form action="" style="margin-top: 127px" method="post">
             <div class="h5 font-weight-bold text-center mb-3"><h1>Login</h1></div>
             <div class="form-group d-flex align-items-center">
                 <div class="icon"><span class="far fa-user"></span></div>
-                <input autocomplete="off" type="text" class="form-control" placeholder="Name">
+                <input autocomplete="off" type="text" class="form-control" placeholder="Name" name="username">
             </div>
             <div class="form-group d-flex align-items-center">
                 <div class="icon"><span class="far fa-envelope"></span></div>
-                <input autocomplete="off" type="password" class="form-control" placeholder="Password">
+                <input autocomplete="off" type="password" class="form-control" placeholder="Password" name="password">
             </div>
-
-            <button class="btn btn-primary mb-3" style="text-align: center;width: 100%;margin-top: 20px" type="submit">Sign In</button>
-
+            <button class="btn btn-primary mb-3" style="text-align: center;width: 100%;margin-top: 20px">Sign In</button>
         </form>
     </div>
-
 </div>
 </body>
 </html>
